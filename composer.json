@@ -1,0 +1,15 @@
+{
+    "name": "rafeefrezeq/blog-php",
+    "autoload": {
+        "psr-4": {
+            "Rafeefrezeq\\BlogPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rafeef2Rizq",
+            "email": "rfyfrzq7@gmail.com"
+        }
+    ],
+    "require": {}
+}
