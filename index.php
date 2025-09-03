@@ -1,6 +1,7 @@
 <?php
 session_start();
 $conn = require 'includes/db.php';
+$uploadsdir = '../../uploads/';
 $start = 0;
 $posts_per_page = 3;
 //Search Functionality
@@ -47,14 +48,8 @@ function excerpt($text, $limit = 10)
 
 ?>
 
-<html>
+<?php include 'components/main/head.php'; ?>
 
-<head>
-	<title>Personal Blog</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="public/assets/css/main.css" />
-</head>
 
 <body class="is-preload">
 
@@ -62,72 +57,12 @@ function excerpt($text, $limit = 10)
 	<div id="wrapper">
 
 		<!-- Header -->
-		<header id="header">
-			<h1><a href="index.html">Personal Blog</a></h1>
-			<nav class="links">
-				<ul>
-					<li><a href="#">Lorem</a></li>
-					<li><a href="#">Ipsum</a></li>
-					<li><a href="#">Feugiat</a></li>
-					<li><a href="#">Tempus</a></li>
-					<li><a href="#">Adipiscing</a></li>
-				</ul>
-			</nav>
-			<nav class="main">
-				<ul>
-					<li class="search">
-						<a class="fa-search" href="#search">Search</a>
-						<form id="search" method="get" action="search.php">
-							<input type="text" name="search_query" placeholder="Search" />
-						</form>
-					</li>
-					<li class="menu">
-						<a class="fa-bars" href="#menu">Menu</a>
-					</li>
-				</ul>
-			</nav>
-		</header>
+		<?php include 'components/main/header.php'; ?>
+
 
 		<!-- Menu -->
-		<section id="menu">
+				<?php include 'components/main/menu.php'; ?>
 
-			<!-- Search -->
-			<section>
-				<form class="search" method="get" action="#">
-					<input type="text" name="query" placeholder="Search" />
-				</form>
-			</section>
-
-			<!-- Links -->
-			<section>
-				<ul class="links">
-					<?php foreach($posts as $post): ?>
-					<li>
-						<a href="#">
-							<h3><?php echo $post['title'] ?></h3>
-							<p><?php echo $post['excerpt'] ?><</p>
-						</a>
-					</li>
-				<?php endforeach; ?>
-				</ul>
-			</section>
-
-			<!-- Actions -->
-			<section>
-				<ul class="actions stacked">
-					<?php if (isset($_SESSION['user_id'])): ?>
-						<!-- يظهر إذا المستخدم مسجل دخول -->
-						<li><a href="dashboard.php" class="button large fit">Dashboard</a></li>
-						<li><a href="public/logout.php" class="button large fit">Log Out</a></li>
-					<?php else: ?>
-						<!-- يظهر إذا المستخدم غير مسجل دخول -->
-						<li><a href="public/login.php" class="button large fit">Log In</a></li>
-					<?php endif; ?>
-				</ul>
-			</section>
-
-
-		</section>
 
 		<!-- Main -->
 		<div id="main">
@@ -137,25 +72,25 @@ function excerpt($text, $limit = 10)
 				<article class="post">
 					<header>
 						<div class="title">
-							<h2><a href="single.html"><?php echo $post['title'] ?></a></h2>
+							<h2><a href="single_post.php?id=<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a></h2>
 							<p><?php echo $post['excerpt'] ?></p>
 						</div>
 						<div class="meta">
 							<time class="published" datetime="<?php echo $post['created_at']; ?>">
-								<?php echo date('F j, Y', strtotime($post['created_at'])); ?></time>
+								<?php echo date('F j, Y', strtotime(datetime: $post['created_at'])); ?>
+							</time>
 							<a href="#" class="author"><span class="name"><?php echo $post['author_name'] ?></span><img src="public/images/avatar.jpg" alt="" />
 							</a>
 						</div>
 					</header>
-					<a href="single.html" style="height: 300px;" class="image featured"><img src="../../uploads/<?php echo $post['image'] ?>" alt="" /></a>
+					<a href="single_post.php?id=<?php echo $post['id'] ?>" style="height: 300px;object-fit: contain;" class="image featured"><img src="<?php echo $uploadsdir . $post['image']; ?>" alt="" /></a>
 					<p><?php echo excerpt($post['content'], 10) ?></p>
 					<footer>
 						<ul class="actions">
-							<li><a href="single.html" class="button large">Continue Reading</a></li>
+							<li><a href="single_post.php?id=<?php echo $post['id'] ?>" class="button large">Continue Reading</a></li>
 						</ul>
 						<ul class="stats">
 							<li><a href="#">General</a></li>
-							<li><a href="#" class="icon solid fa-heart">28</a></li>
 							<li><a href="#" class="icon solid fa-comment">128</a></li>
 						</ul>
 					</footer>
@@ -210,7 +145,7 @@ function excerpt($text, $limit = 10)
 									</time>
 									<a href="#" class="author"><span class="name"><?php echo $post['author_name'] ?></span><img src="public/images/avatar.jpg" alt="" /></time>
 								</header>
-								<a href="single.html" class="image"><img src="../../uploads/<?php echo $post['image'] ?>" alt="" /></a>
+								<a href="single.html" class="image"><img src="<?php echo $uploadsdir . $post['image']; ?>" alt="" /></a>
 							</article>
 						</li>
 					<?php endforeach; ?>
@@ -228,27 +163,14 @@ function excerpt($text, $limit = 10)
 			</section>
 
 			<!-- Footer -->
-			<section id="footer">
-				<ul class="icons">
-					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-					<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-				</ul>
-				<p class="copyright">&copy; Dveloped by <a href="">Rafeef Rezeq</a></p>
-			</section>
+				<?php include 'components/main/footer.php'; ?>
 
-		</section>
 
 	</div>
 
 	<!-- Scripts -->
-	<script src="public/assets/js/jquery.min.js"></script>
-	<script src="public/assets/js/browser.min.js"></script>
-	<script src="public/assets/js/breakpoints.min.js"></script>
-	<script src="public/assets/js/util.js"></script>
-	<script src="public/assets/js/main.js"></script>
+	<?php include 'components/main/script.php'; ?>
+
 
 </body>
 

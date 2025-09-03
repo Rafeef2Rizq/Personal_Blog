@@ -1,7 +1,17 @@
-<?php include '../../components/head.php' ?>
 <?php
+session_start();
+if (isset($_SESSION['success'])) {
+    echo '<div class="alert alert-success">'.$_SESSION['success'].'</div>';
+    unset($_SESSION['success']);
+}
+
+if (isset($_SESSION['error'])) {
+    echo '<div class="alert alert-danger">'.$_SESSION['error'].'</div>';
+    unset($_SESSION['error']);
+}
+
 $conn = require '../../includes/db.php';
-$posts = [];
+$categories = [];
 if ($conn) {
     $stmt = $conn->query('
    SELECT *
@@ -10,20 +20,24 @@ if ($conn) {
 ');
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+
 ?>
+<?php include '../../components/dashboard/head.php' ?>
 
 <body>
     <!-- Sidebar -->
-    <?php include '../../components/slidebar.php' ?>
+    <?php include '../../components/dashboard/slidebar.php' ?>
     <div id="content">
-        <?php include '../../components/topbar.php' ?>
+        <?php include '../../components/dashboard/topbar.php' ?>
         <!-- Product Delivery and Stock Report -->
         <div class="row">
 
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">All posts</h5>
+                        <h5 class="mb-0">All categories</h5>
                         <div class="d-flex">
                             <div class="dropdown me-2">
                                 <button class="btn btn-sm btn-light dropdown-toggle" type="button"
@@ -58,6 +72,8 @@ if ($conn) {
                                 <thead>
                                     <tr>
                                         <th>Name of category</th>
+                                         <th>Actions</th>
+
                                       
 
 
@@ -71,7 +87,17 @@ if ($conn) {
                                                     <span class="fw-semibold"><?php echo $category['name'] ?></span>
                                                 </div>
                                             </td>
-                                          
+                                           <td>
+                                                <a href="../../view/category/update.php?id=<?= $category['id'] ?>"
+                                                    class="btn btn-sm btn-outline-success mb-2">
+                                                    <i class="bi bi-pencil-square"></i> Edit
+                                                </a>
+                                                <a href="../../view/category/delete.php?id=<?= $category['id'] ?>"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this category?')">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </a>
+                                            </td>
                                                 </tr>
                                         <?php endforeach; ?>
                                 </tbody>
@@ -103,7 +129,7 @@ if ($conn) {
             </div>
         </div>
     </div>
-    <?php include '../../components/script.php' ?>
+    <?php include '../../components/dashboard/script.php' ?>
 </body>
 
 </html>

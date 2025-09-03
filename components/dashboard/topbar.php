@@ -15,68 +15,7 @@
                        style="width: 120px;">
                </div>
 
-               <!-- Messages Dropdown -->
-               <div class="dropdown me-3">
-                   <a class="position-relative" href="#" role="button" id="messagesDropdown"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                       <iconify-icon icon="ri:message-2-line" width="24" height="24"></iconify-icon>
-                       <span
-                           class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                           5
-                           <span class="visually-hidden">unread messages</span>
-                       </span>
-                   </a>
-                   <ul class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="messagesDropdown"
-                       style="width: 320px;">
-                       <li
-                           class="dropdown-header bg-light py-2 px-3 d-flex justify-content-between align-items-center">
-                           <span>Messages</span>
-                           <a href="#" class="small">Mark all as read</a>
-                       </li>
-                       <li class="px-2 py-1">
-                           <a href="#" class="dropdown-item d-flex align-items-start py-2">
-                               <img src="images/team2.jpg" class="rounded-circle me-2" width="40" height="40">
-                               <div class="flex-grow-1">
-                                   <div class="d-flex justify-content-between">
-                                       <strong>John Doe</strong>
-                                       <small class="text-muted">2 min ago</small>
-                                   </div>
-                                   <p class="mb-0 text-truncate" style="max-width: 220px;">Hey there! I wanted to
-                                       ask about the project timeline...</p>
-                               </div>
-                           </a>
-                       </li>
-                       <li class="px-2 py-1">
-                           <a href="#" class="dropdown-item d-flex align-items-start py-2">
-                               <img src="images/team5.jpg" class="rounded-circle me-2" width="40" height="40">
-                               <div class="flex-grow-1">
-                                   <div class="d-flex justify-content-between">
-                                       <strong>Sarah Smith</strong>
-                                       <small class="text-muted">1 hour ago</small>
-                                   </div>
-                                   <p class="mb-0 text-truncate" style="max-width: 220px;">The documents you
-                                       requested are ready for review...</p>
-                               </div>
-                           </a>
-                       </li>
-                       <li class="px-2 py-1">
-                           <a href="#" class="dropdown-item d-flex align-items-start py-2">
-                               <img src="images/team4.jpg" class="rounded-circle me-2" width="40" height="40">
-                               <div class="flex-grow-1">
-                                   <div class="d-flex justify-content-between">
-                                       <strong>Team Update</strong>
-                                       <small class="text-muted">3 hours ago</small>
-                                   </div>
-                                   <p class="mb-0 text-truncate" style="max-width: 220px;">Monthly team meeting
-                                       scheduled for Friday at 2pm...</p>
-                               </div>
-                           </a>
-                       </li>
-                       <li class="dropdown-footer text-center py-2">
-                           <a href="#" class="text-primary">View all messages</a>
-                       </li>
-                   </ul>
-               </div>
+             
 
                <!-- Notifications Dropdown -->
                <div class="dropdown me-3">
@@ -150,21 +89,8 @@
                                Profile
                            </a>
                        </li>
-                       <li>
-                           <a class="dropdown-item d-flex align-items-center" href="#">
-                               <iconify-icon icon="mdi:cog-outline" class="me-2" width="20"
-                                   height="20"></iconify-icon>
-                               Settings
-                           </a>
-                       </li>
-                       <li>
-                           <a class="dropdown-item d-flex align-items-center" href="#">
-                               <iconify-icon icon="mdi:email-outline" class="me-2" width="20"
-                                   height="20"></iconify-icon>
-                               Messages
-                               <span class="ms-auto badge bg-primary rounded-pill">14</span>
-                           </a>
-                       </li>
+                      
+                    
                        <li>
                            <hr class="dropdown-divider">
                        </li>

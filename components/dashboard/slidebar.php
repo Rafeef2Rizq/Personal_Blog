@@ -1,6 +1,6 @@
  <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-white">
         <div class="p-3 d-flex align-items-center justify-content-between">
-            <img src="../assets/images/main-logo.png" class="img-fluid">
+            <img src="../public/assets/dashboard/images/main-logo.png" class="img-fluid">
             <button class="btn btn-sm d-block d-lg-none" id="sidebarclose">
                 <iconify-icon icon="mdi:hamburger-menu-back" class="text-white" width="24" height="24"></iconify-icon>
             </button>

@@ -3,18 +3,29 @@ session_start();
 
 $conn = require '../../includes/db.php';
 
+// الحصول على category id
+$category_id = $_GET['id'] ?? null;
+if (!$category_id) {
+    die("No category ID provided");
+}
+
+// جلب بيانات البوست القديم
+$stmt = $conn->prepare("SELECT * FROM categories WHERE id = :id");
+$stmt->execute([':id' => $category_id]);
+$category = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$category) {
+    die("Category not found");
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
-  
 
-   
-   
-    $stmt = $conn->prepare("INSERT INTO categories (name) VALUES (:name)");
+    $stmt = $conn->prepare("UPDATE  categories set name=:name where id=:id");
+    $stmt->bindParam(':id', $category_id);
     $stmt->bindParam(':name', $name);
     $stmt->execute();
     
-        $_SESSION['success'] = "✅ Category created successfully!";
-
+    $_SESSION['success'] = "✅ Category updated successfully!";
 
     header('Location: index.php');
 }
@@ -38,13 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form method="post">
                             <div class="mb-4">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter category name">
+                                <input type="text" class="form-control"
+                                value="<?php echo $category['name'] ?>" name="name" id="name" placeholder="Enter category name">
                             </div>
                         
                          
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-plus-circle me-2"></i>Create Category
+                                    <i class="bi bi-plus-circle me-2"></i>Update Category
                                 </button>
                             </div>
                         </form>
